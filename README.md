@@ -1,20 +1,52 @@
-# ![ ](etc/assets/uuid_64px.png) uuid
+# Comparator Verifier
 
-### RFC 4122 UUIDs
+Comparator Verifier is intended for use in tests to validate the contract for Comparator is met.
 
-# 🧭 Getting Started
+## Getting Started
 
-`./gradlew build`
+### With Maven
 
-# 💡 What Is This?
+```xml
+<dependency>
+    <groupId>io.github.nutshellengineering</groupId>
+    <artifactId>uuid</artifactId>
+    <version>x.y.x</version>
+</dependency>
+```
 
-A collection of RFC 4122 UUIDs for Java
+### With Gradle
 
-# 🏗 Build
-`./gradlew build` compiles the code, runs the tests, and builds the libraries.
+Add `uuid` to your `build.gradle` file.
 
-# 🚚 Contributing
-Please do fork, fix, and request a review 🙂
+#### Using Groovy DSL
 
-# 🐛 Issues
-Bug reports are always welcome!
+```gradle
+dependencies {
+    testImplementation 'io.github.nutshellengineering:uuid:x.y.x'
+}
+```
+
+#### Using Kotlin DSL
+
+```kotlin
+dependencies {
+    testImplementation("io.github.nutshellengineering:uuid:x.y.x")
+}
+``` 
+
+### Further Documentation
+
+See [uuid documentation](https://nutshellengineering.github.io/uuid/).
+
+## Developing
+
+### Build Instructions
+
+```bash
+mvn verify
+```
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
