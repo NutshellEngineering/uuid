@@ -28,6 +28,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
+import static uu.id.Bytes.bytesToLong;
 import static uu.id.Bytes.updateDigest;
 import static uu.id.Epoch.UUID_UTC_BASE_TIME;
 
@@ -91,7 +92,7 @@ abstract class Rfc9562TimeBasedUuid {
         if (network.getHardwareAddress() == null) {
             throw new SocketException("No hardware address found");
         }
-        return Bytes.bytesToLong(network.getHardwareAddress(), 6, true);
+        return bytesToLong(network.getHardwareAddress(), 6, true);
     }
 
     /**
@@ -105,7 +106,7 @@ abstract class Rfc9562TimeBasedUuid {
                 updateDigest(digest, properties.getProperty(key));
             }
             byte[] hash = digest.digest();
-            var node = Bytes.bytesToLong(hash, 6, false);
+            var node = bytesToLong(hash, 6, false);
             // The multicast bit must be set (1) in pseudo-random addresses, in order that they will never
             // conflict with addresses obtained from network cards.
             //                                 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+

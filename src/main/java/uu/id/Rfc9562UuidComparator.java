@@ -20,11 +20,13 @@ import java.io.Serializable;
 import java.util.Comparator;
 import java.util.UUID;
 
+import static uu.id.Bytes.bytes;
+
 class Rfc9562UuidComparator implements Comparator<UUID>, Serializable {
     @Override
     public int compare(UUID u1, UUID u2) {
-        byte[] b1 = Bytes.bytes(u1);
-        byte[] b2 = Bytes.bytes(u2);
+        var b1 = bytes(u1);
+        var b2 = bytes(u2);
         if (b1.length != b2.length) {
             throw new IllegalArgumentException("UUID byte arrays differ in length");
         }

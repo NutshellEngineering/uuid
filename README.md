@@ -1,9 +1,8 @@
-# uuid
+# <img class="avatar mr-2 d-none d-md-block" alt="Owner avatar" src="https://avatars.githubusercontent.com/u/212110541?s=48&amp;v=4" width="24" height="24"> uuid
 
 A collection of RFC 9562 UUIDs for Java.
 
 [![Static Badge](https://img.shields.io/badge/Nutshell_Engineering-Official-gold?logo=okta)](https://github.com/search?q=org%3ANutshellEngineering+topic%3Aofficial&type=repositories)
-
 
 ## Getting Started
 

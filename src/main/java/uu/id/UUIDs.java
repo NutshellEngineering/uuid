@@ -23,123 +23,275 @@ import java.time.Instant;
 import java.util.Comparator;
 import java.util.UUID;
 
+import static uu.id.Bytes.bytesToUUID;
 import static uu.id.Epoch.UUID_UTC_BASE_TIME;
 
 @SuppressWarnings("unused")
 @API(status = Status.STABLE, since = "1.0.0")
 public final class UUIDs {
 
+    /**
+     * The nil UUID is special form of UUID that is specified to have all
+     * 128 bits set to zero.
+     *
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.9">RFC 9562 Section 5.9</a>
+     */
     public static final UUID NIL_UUID = new UUID(0L, 0L);
+    /**
+     * The nil UUID is special form of UUID that is specified to have all
+     * 128 bits set to zero.
+     *
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.9">RFC 9562 Section 5.9</a>
+     */
     public static final UUID MIN_UUID = NIL_UUID;
+    /**
+     * The Max UUID is a special form of UUID that is specified to have all
+     * 128 bits set to 1. This UUID can be thought of as the inverse of the
+     * Nil UUID defined in <a href="https://www.rfc-editor.org/rfc/rfc9562#name-nil-uuid">Section 5.9</a>.
+     *
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.10">RFC 9562 Section 5.10</a>
+     */
     public static final UUID MAX_UUID = new UUID(0xFFFFFFFFFFFFFFFFL, 0xFFFFFFFFFFFFFFFFL);
 
     private UUIDs() {
     }
 
+    /**
+     * Well-known namespace UUIDs used for name-based UUID generation (v3 and v5). <p>
+     * These values are defined in <a href="https://datatracker.ietf.org/doc/html/rfc9562#name_based_uuid_generation">RFC 9562 Section 6.5</a>.
+     *
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.2">RFC 9562 Section 5.2</a>
+     */
     public enum NS {
+        /**
+         * Namespace for DNS names.
+         *
+         * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#name-namespace-id-usage-and-allo">RFC 9562 Section 6.6</a>
+         */
         DNS(uuid("6ba7b810-9dad-11d1-80b4-00c04fd430c8")),
+
+        /**
+         * Namespace for URL strings.
+         *
+         * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#name-namespace-id-usage-and-allo">RFC 9562 Section 6.6</a>
+         */
         URL(uuid("6ba7b811-9dad-11d1-80b4-00c04fd430c8")),
+
+        /**
+         * Namespace for ISO OIDs.
+         *
+         * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#name-namespace-id-usage-and-allo">RFC 9562 Section 6.6</a>
+         */
         OID(uuid("6ba7b812-9dad-11d1-80b4-00c04fd430c8")),
+
+        /**
+         * Namespace for X.500 Distinguished Names.
+         *
+         * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#name-namespace-id-usage-and-allo">RFC 9562 Section 6.6</a>
+         */
         X500(uuid("6ba7b814-9dad-11d1-80b4-00c04fd430c8"));
 
-        public final UUID namespace;
+        private final UUID namespace;
 
         NS(UUID uuid) {
             this.namespace = uuid;
         }
     }
 
-    // Constructors and Factories
-
-    // Version 1
-
+    /**
+     * UUIDv1 is a time-based UUID featuring a 60-bit timestamp represented by Coordinated Universal Time (UTC)
+     * as a count of 100-nanosecond intervals since 00:00:00.00, 15 October 1582 (the date of Gregorian reform
+     * to the Christian calendar).
+     *
+     * @return a Version 1 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.1">RFC 9562 Section 5.1</a>
+     */
     public static UUID timeBasedUUID() {
-        return Rfc9562Version1.generate();
+        return v1UUID();
     }
 
+    /**
+     * UUIDv1 is a time-based UUID featuring a 60-bit timestamp represented by Coordinated Universal Time (UTC)
+     * as a count of 100-nanosecond intervals since 00:00:00.00, 15 October 1582 (the date of Gregorian reform
+     * to the Christian calendar).
+     *
+     * @return a Version 1 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.1">RFC 9562 Section 5.1</a>
+     */
     public static UUID v1UUID() {
         return Rfc9562Version1.generate();
     }
 
-    // Version 3
-
+    /**
+     * UUIDv3 is a name-based UUID that uses MD5 hashing.
+     *
+     * @param namespace the namespace UUID
+     * @param name      the name string
+     * @return a Version 3 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.3">RFC 9562 Section 5.3</a>
+     */
     public static UUID nameBasedUUID(NS namespace, String name) {
         return v3UUID(namespace, name);
     }
 
+    /**
+     * UUIDv3 is a name-based UUID that uses MD5 hashing.
+     *
+     * @param namespace the namespace UUID
+     * @param name      the name string
+     * @return a Version 3 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.3">RFC 9562 Section 5.3</a>
+     */
     public static UUID md5UUID(NS namespace, String name) {
         return v3UUID(namespace, name);
     }
 
+    /**
+     * UUIDv3 is a name-based UUID that uses MD5 hashing.
+     *
+     * @param namespace the namespace UUID
+     * @param name      the name string
+     * @return a Version 3 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.3">RFC 9562 Section 5.3</a>
+     */
     public static UUID v3UUID(NS namespace, String name) {
         return Rfc9562Version3.generate(namespace.namespace, name);
     }
 
-    // Version 4
-
+    /**
+     * UUIDv4 is a randomly generated UUID that uses 122 bits of randomness.
+     *
+     * @return a Version 4 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.4">RFC 9562 Section 5.4</a>
+     */
     public static UUID randomUUID() {
         return v4UUID();
     }
 
+    /**
+     * UUIDv4 is a randomly generated UUID that uses 122 bits of randomness.
+     *
+     * @return a Version 4 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.4">RFC 9562 Section 5.4</a>
+     */
     public static UUID v4UUID() {
         return Rfc9562Version4.generate();
     }
 
-    // Version 5
-
+    /**
+     * UUIDv5 is a name-based UUID that uses SHA-1 hashing.
+     *
+     * @param namespace the namespace UUID
+     * @param name      the name string
+     * @return a Version 5 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.5">RFC 9562 Section 5.5</a>
+     */
     public static UUID sha1UUID(NS namespace, String name) {
         return v5UUID(namespace, name);
     }
 
+    /**
+     * UUIDv5 is a name-based UUID that uses SHA-1 hashing.
+     *
+     * @param namespace the namespace UUID
+     * @param name      the name string
+     * @return a Version 5 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.5">RFC 9562 Section 5.5</a>
+     */
     public static UUID v5UUID(NS namespace, String name) {
         return Rfc9562Version5.generate(namespace.namespace, name);
     }
 
-    // Version 6
-
-    public static UUID lexicographicTimeBasedUUID() {
+    /**
+     * UUIDv6 is a time-ordered UUID with the 60-bit timestamp placed in the most significant bits
+     * to improve lexicographic sortability.
+     *
+     * @return a Version 6 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.6">RFC 9562 Section 5.6</a>
+     */
+    public static UUID sortableTimeBasedUUID() {
         return v6UUID();
     }
 
-
+    /**
+     * UUIDv6 is a time-ordered UUID with the 60-bit timestamp placed in the most significant bits
+     * to improve lexicographic sortability.
+     *
+     * @return a Version 6 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.6">RFC 9562 Section 5.6</a>
+     */
     public static UUID v6UUID() {
         return Rfc9562Version6.generate();
     }
 
-    // Version 7
-
+    /**
+     * UUIDv7 encodes a 48-bit Unix timestamp in milliseconds plus 74 random bits.
+     *
+     * @return a Version 7 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.7">RFC 9562 Section 5.7</a>
+     */
     public static UUID unixTimeBasedUUID() {
         return v7UUID();
     }
 
+    /**
+     * UUIDv7 encodes a 48-bit Unix timestamp in milliseconds plus 74 random bits.
+     *
+     * @return a Version 7 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.7">RFC 9562 Section 5.7</a>
+     */
     public static UUID v7UUID() {
         return Rfc9562Version7.generate();
     }
 
-    // Version 8
-
+    /**
+     * UUIDv8 is reserved for application-specific semantics.
+     *
+     * @return a Version 8 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.8">RFC 9562 Section 5.8</a>
+     */
     public static UUID customUUID() {
         return v8UUID();
     }
 
+    /**
+     * UUIDv8 generated from a source UUID by rewriting version and variant.
+     *
+     * @param source an existing UUID to base the custom UUID on
+     * @return a Version 8 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.8">RFC 9562 Section 5.8</a>
+     */
     public static UUID customUUID(UUID source) {
         return v8UUID(source);
     }
 
+    /**
+     * UUIDv8 is reserved for application-specific semantics.
+     *
+     * @return a Version 8 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.8">RFC 9562 Section 5.8</a>
+     */
     public static UUID v8UUID() {
         return v8UUID(v4UUID());
     }
 
+    /**
+     * UUIDv8 generated from a source UUID by rewriting version and variant.
+     *
+     * @param source an existing UUID to base the custom UUID on
+     * @return a Version 8 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.8">RFC 9562 Section 5.8</a>
+     */
     public static UUID v8UUID(UUID source) {
         return Rfc9562Version8.generate(source);
     }
 
-    // Version 0 (Nil UUID)
-
     /**
-     * Nil UUID
      * The nil UUID is special form of UUID that is specified to have all
      * 128 bits set to zero.
+     *
+     * @return the Nil UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.9">RFC 9562 Section 5.9</a>
      */
     public static UUID nilUUID() {
         return NIL_UUID;
@@ -149,14 +301,21 @@ public final class UUIDs {
      * The Max UUID is a special form of UUID that is specified to have all
      * 128 bits set to 1. This UUID can be thought of as the inverse of the
      * Nil UUID defined in <a href="https://www.rfc-editor.org/rfc/rfc9562#name-nil-uuid">Section 5.9</a>.
-     * @see <a href="https://www.rfc-editor.org/rfc/rfc9562#name-max-uuid">5.10. Max UUID</a>
+     *
+     * @return the Max UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.10">RFC 9562 Section 5.10</a>
      */
     public static UUID maxUUID() {
         return MAX_UUID;
     }
 
-    // Utilities
-
+    /**
+     * Extracts the real timestamp from a time-based UUID (v1, v6, or v7).
+     *
+     * @param uuid a time-based UUID
+     * @return the corresponding Instant
+     * @throws UnsupportedOperationException if the UUID version is not time-based
+     */
     public static Instant realTimestamp(UUID uuid) {
         return switch (uuid.version()) {
             case 1 -> Rfc9562Version1.realTimestamp(uuid);
@@ -166,10 +325,22 @@ public final class UUIDs {
         };
     }
 
+    /**
+     * Converts a 60-bit UUID timestamp into an Instant.
+     *
+     * @param timestamp UUID timestamp in 100ns ticks
+     * @return an Instant corresponding to the UUID time
+     */
     public static Instant realTimestamp(long timestamp) {
-        return Instant.ofEpochMilli(timestamp / 10000).plusMillis(UUID_UTC_BASE_TIME.toEpochMilli());
+        return Instant.ofEpochMilli(timestamp / 10_000).plusMillis(UUID_UTC_BASE_TIME.toEpochMilli());
     }
 
+    /**
+     * Returns a binary string representation of the UUID.
+     *
+     * @param uuid the UUID to represent
+     * @return the binary string in grouped layout
+     */
     public static String toBinaryString(UUID uuid) {
         return formatBinaryString(
                 Long.toBinaryString(uuid.getMostSignificantBits()) +
@@ -177,19 +348,38 @@ public final class UUIDs {
         );
     }
 
+    /**
+     * Returns a comparator that performs correct unsigned bytewise comparison of UUIDs. <p>
+     * The default {@link UUID#compareTo(UUID)} implementation performs signed comparisons, which violates
+     * the expected ordering semantics for UUIDs. This comparator corrects that.
+     *
+     * @return a comparator that matches RFC 9562 canonical ordering
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-6">RFC 9562 Section 6</a>
+     * @see <a href="https://bugs.java.com/bugdatabase/view_bug.do?bug_id=7025832">JDK Bug 7025832</a>
+     */
     public static Comparator<UUID> comparator() {
         return new Rfc9562UuidComparator();
     }
 
+    /**
+     * Converts a byte array to a UUID.
+     *
+     * @param data a 16-byte array
+     * @return the UUID
+     */
     public static UUID uuid(byte[] data) {
-        return Bytes.bytesToUUID(data);
+        return bytesToUUID(data);
     }
 
+    /**
+     * Parses a UUID from a standard string representation.
+     *
+     * @param str the UUID string
+     * @return the UUID instance
+     */
     public static UUID uuid(String str) {
         return UUID.fromString(str);
     }
-
-    // Private
 
     private static String formatBinaryString(String binaryString) {
         binaryString = String.format("%128s", binaryString).replace(' ', '0');
@@ -199,5 +389,4 @@ public final class UUIDs {
                 binaryString.substring(64, 80) + "-" +
                 binaryString.substring(80, 128);
     }
-
 }

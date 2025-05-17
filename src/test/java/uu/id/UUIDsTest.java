@@ -45,7 +45,7 @@ final class UUIDsTest {
                 () -> assertThrows(UnsupportedOperationException.class, () -> UUIDs.realTimestamp(v4UUID())),
                 () -> assertThrows(UnsupportedOperationException.class, () -> UUIDs.realTimestamp(v5UUID(NS.URL, "test"))),
                 () -> assertDoesNotThrow(() -> UUIDs.realTimestamp(timeBasedUUID())),
-                () -> assertDoesNotThrow(() -> UUIDs.realTimestamp(lexicographicTimeBasedUUID())),
+                () -> assertDoesNotThrow(() -> UUIDs.realTimestamp(sortableTimeBasedUUID())),
                 () -> assertDoesNotThrow(() -> UUIDs.realTimestamp(unixTimeBasedUUID())));
     }
 
