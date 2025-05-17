@@ -1,6 +1,6 @@
-# Comparator Verifier
+# uuid
 
-Comparator Verifier is intended for use in tests to validate the contract for Comparator is met.
+A collection of RFC 9562 UUIDs for Java.
 
 ## Getting Started
 
