@@ -18,6 +18,6 @@ package uu.id;
 
 import java.time.Instant;
 
-public class Epoch {
+final class Epoch {
     static final Instant UUID_UTC_BASE_TIME = Instant.ofEpochMilli(-12219292800000L);
 }
