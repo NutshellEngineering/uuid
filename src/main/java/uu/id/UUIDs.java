@@ -26,6 +26,39 @@ import java.util.UUID;
 import static uu.id.Bytes.bytesToUUID;
 import static uu.id.Epoch.UUID_UTC_BASE_TIME;
 
+/**
+ * Static utility methods for creating, parsing, inspecting, and comparing {@link java.util.UUID UUID} instances
+ * in accordance with <a href="https://datatracker.ietf.org/doc/html/rfc9562">RFC 9562</a>.
+ * <p>
+ * This class provides factory methods for generating all standard UUID versions defined in RFC 9562,
+ * including:
+ * <ul>
+ *     <li>{@linkplain #v1UUID() Version 1} (time-based UUIDs)</li>
+ *     <li>{@linkplain #v3UUID(NS, String) Version 3} (name-based using MD5)</li>
+ *     <li>{@linkplain #v4UUID() Version 4} (random UUIDs)</li>
+ *     <li>{@linkplain #v5UUID(NS, String) Version 5} (name-based using SHA-1)</li>
+ *     <li>{@linkplain #v6UUID() Version 6} (sortable, time-reordered)</li>
+ *     <li>{@linkplain #v7UUID() Version 7} (Unix time-based with randomness)</li>
+ *     <li>{@linkplain #v8UUID() Version 8} (custom format)</li>
+ * </ul>
+ * It also defines constants and utilities for working with the special values defined in the RFC:
+ * <ul>
+ *     <li>{@linkplain #nilUUID() Nil UUID} (all bits set to zero)</li>
+ *     <li>{@linkplain #maxUUID() Max UUID} (all bits set to one)</li>
+ *     <li>{@linkplain NS Standard name spaces} for deterministic UUIDs</li>
+ * </ul>
+ * <p>
+ * Unlike the default {@link java.util.UUID#compareTo(UUID)} implementation, which uses signed component-wise
+ * comparison and is known to produce incorrect results in some edge cases, this class offers a correct
+ * comparator via {@link #comparator()} that performs canonical bytewise comparison as defined in
+ * <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-6">RFC 9562 Section 6</a>.
+ * <p>
+ * This class is immutable and thread-safe.
+ *
+ * @since 1.0.0
+ * @see java.util.UUID
+ * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562">RFC 9562 </a>
+ */
 @SuppressWarnings("unused")
 @API(status = Status.STABLE, since = "1.0.0")
 public final class UUIDs {
@@ -37,6 +70,7 @@ public final class UUIDs {
      * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.9">RFC 9562 Section 5.9</a>
      */
     public static final UUID NIL_UUID = new UUID(0L, 0L);
+
     /**
      * The nil UUID is special form of UUID that is specified to have all
      * 128 bits set to zero.
@@ -44,6 +78,7 @@ public final class UUIDs {
      * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.9">RFC 9562 Section 5.9</a>
      */
     public static final UUID MIN_UUID = NIL_UUID;
+
     /**
      * The Max UUID is a special form of UUID that is specified to have all
      * 128 bits set to 1. This UUID can be thought of as the inverse of the
