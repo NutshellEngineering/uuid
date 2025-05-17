@@ -2,6 +2,9 @@
 
 A collection of RFC 9562 UUIDs for Java.
 
+[![Static Badge](https://img.shields.io/badge/Nutshell_Engineering-Official-gold?logo=okta)](https://github.com/search?q=org%3ANutshellEngineering+topic%3Aofficial&type=repositories)
+
+
 ## Getting Started
 
 ### With Maven
