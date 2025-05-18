@@ -34,4 +34,8 @@ final class Rfc9562Version3 {
     public static UUID generate(UUID namespace, String name) {
         return UUID.nameUUIDFromBytes(concat(bytes(namespace), name.getBytes(UTF_8)));
     }
+
+    public static UUID generate(String name) {
+        return UUID.nameUUIDFromBytes(name.getBytes(UTF_8));
+    }
 }

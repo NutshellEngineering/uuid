@@ -19,14 +19,12 @@ package uu.id;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
-import static uu.id.Bytes.bytes;
-import static uu.id.Bytes.bytesToUUID;
-import static uu.id.Bytes.concat;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static uu.id.Bytes.*;
 
 @API(status = Status.INTERNAL)
 final class Rfc9562Version5 {
@@ -35,13 +33,21 @@ final class Rfc9562Version5 {
     }
 
     public static UUID generate(UUID namespace, String name) {
-        return generate(namespace, name.getBytes(StandardCharsets.UTF_8));
+        return generate(namespace, name.getBytes(UTF_8));
     }
 
     public static UUID generate(UUID namespace, byte[] name) {
+        return generate(concat(bytes(namespace), name));
+    }
+
+    public static UUID generate(String name) {
+        return generate(name.getBytes(UTF_8));
+    }
+
+    public static UUID generate(byte[] name) {
         try {
             var digest = MessageDigest.getInstance("SHA1");
-            digest.update(concat(bytes(namespace), name));
+            digest.update(name);
             byte[] sha1Bytes = digest.digest();
             sha1Bytes[6] &= 0x0f;        // clear version
             sha1Bytes[6] |= 0x50;        // set to version 5
@@ -52,4 +58,5 @@ final class Rfc9562Version5 {
             throw new InternalError("SHA1 not supported", e);
         }
     }
+
 }

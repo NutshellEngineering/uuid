@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
@@ -131,6 +132,13 @@ final class UUIDsTest {
     }
 
     @Test
+    void v3UUID_is_compatible_with_jdk_uuids() {
+        assertAll(
+                () -> assertEquals(UUID.nameUUIDFromBytes("test".getBytes()), v3UUID("test"))
+        );
+    }
+
+    @Test
     void v5UUID_returns_canonical_values_for_known_namespaces() {
         assertAll(
                 () -> assertEquals(uuid("da5b8893-d6ca-5c1c-9a9c-91f40a2a3649"), v5UUID(NS.URL, "test")),
@@ -141,12 +149,12 @@ final class UUIDsTest {
 
     @Test
     void nilUUID_has_all_bits_zero() {
-        assertEquals("00000000-0000-0000-0000-000000000000", nilUUID().toString());
+        assertEquals(uuid("00000000-0000-0000-0000-000000000000"), nilUUID());
     }
 
     @Test
     void maxUUID_has_all_bits_set() {
-        assertEquals("ffffffff-ffff-ffff-ffff-ffffffffffff", maxUUID().toString());
+        assertEquals(uuid("ffffffff-ffff-ffff-ffff-ffffffffffff"), maxUUID());
     }
 
     @Test

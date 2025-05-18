@@ -28,8 +28,7 @@ import static uu.id.Epoch.UUID_UTC_BASE_TIME;
 
 /**
  * Static utility methods for creating, parsing, inspecting, and comparing {@link java.util.UUID UUID} instances
- * in accordance with <a href="https://datatracker.ietf.org/doc/html/rfc9562">RFC 9562</a>.
- * <p>
+ * in accordance with <a href="https://datatracker.ietf.org/doc/html/rfc9562">RFC 9562</a>.<p>
  * This class provides factory methods for generating all standard UUID versions defined in RFC 9562,
  * including:
  * <ul>
@@ -46,13 +45,11 @@ import static uu.id.Epoch.UUID_UTC_BASE_TIME;
  *     <li>{@linkplain #nilUUID() Nil UUID} (all bits set to zero)</li>
  *     <li>{@linkplain #maxUUID() Max UUID} (all bits set to one)</li>
  *     <li>{@linkplain NS Standard name spaces} for deterministic UUIDs</li>
- * </ul>
- * <p>
+ * </ul><p>
  * Unlike the default {@link java.util.UUID#compareTo(UUID)} implementation, which uses signed component-wise
  * comparison and is known to produce incorrect results in some edge cases, this class offers a correct
  * comparator via {@link #comparator()} that performs canonical bytewise comparison as defined in
- * <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-6">RFC 9562 Section 6</a>.
- * <p>
+ * <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-6">RFC 9562 Section 6</a>.<p>
  * This class is immutable and thread-safe.
  *
  * @since 1.0.0
@@ -134,6 +131,7 @@ public final class UUIDs {
     }
 
     /**
+     * timeBasedUUID is an alias for {@link #v1UUID()}<p>
      * UUIDv1 is a time-based UUID featuring a 60-bit timestamp represented by Coordinated Universal Time (UTC)
      * as a count of 100-nanosecond intervals since 00:00:00.00, 15 October 1582 (the date of Gregorian reform
      * to the Christian calendar).
@@ -158,6 +156,7 @@ public final class UUIDs {
     }
 
     /**
+     * nameBasedUUID is an alias for {@link #v3UUID(NS, String)}<p>
      * UUIDv3 is a name-based UUID that uses MD5 hashing.
      *
      * @param namespace the namespace UUID
@@ -170,6 +169,7 @@ public final class UUIDs {
     }
 
     /**
+     * md5UUID is an alias for {@link #v3UUID(NS, String)}<p>
      * UUIDv3 is a name-based UUID that uses MD5 hashing.
      *
      * @param namespace the namespace UUID
@@ -194,6 +194,51 @@ public final class UUIDs {
     }
 
     /**
+     * nameBasedUUID is an alias for {@link #v3UUID(String)}<p>
+     * UUIDv3 is a name-based UUID that uses MD5 hashing.<p>
+     * Version 3 UUIDs generated without a namespace are not standard compliant.
+     * UUIDs generated using this method are identical to UUIDs created using {@link UUID#nameUUIDFromBytes(byte[])},
+     * and carry the same risk of semantic collision.
+     *
+     * @param name      the name string
+     * @return a Version 3 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.3">RFC 9562 Section 5.3</a>
+     */
+    public static UUID nameBasedUUID(String name) {
+        return Rfc9562Version3.generate(name);
+    }
+
+    /**
+     * md5UUID is an alias for {@link #v3UUID(String)}<p>
+     * UUIDv3 is a name-based UUID that uses MD5 hashing.<p>
+     * Version 3 UUIDs generated without a namespace are not standard compliant.
+     * UUIDs generated using this method are identical to UUIDs created using {@link UUID#nameUUIDFromBytes(byte[])},
+     * and carry the same risk of semantic collision.
+     *
+     * @param name      the name string
+     * @return a Version 3 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.3">RFC 9562 Section 5.3</a>
+     */
+    public static UUID md5UUID(String name) {
+        return Rfc9562Version3.generate(name);
+    }
+
+    /**
+     * UUIDv3 is a name-based UUID that uses MD5 hashing.<p>
+     * Version 3 UUIDs generated without a namespace are not standard compliant.
+     * UUIDs generated using this method are identical to UUIDs created using {@link UUID#nameUUIDFromBytes(byte[])},
+     * and carry the same risk of semantic collision.
+     *
+     * @param name      the name string
+     * @return a Version 3 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.3">RFC 9562 Section 5.3</a>
+     */
+    public static UUID v3UUID(String name) {
+        return Rfc9562Version3.generate(name);
+    }
+
+    /**
+     * randomUUID is an alias for {@link #v4UUID()}<p>
      * UUIDv4 is a randomly generated UUID that uses 122 bits of randomness.
      *
      * @return a Version 4 UUID
@@ -214,6 +259,7 @@ public final class UUIDs {
     }
 
     /**
+     * sha1UUID is an alias for {@link #v5UUID(NS, String)}<p>
      * UUIDv5 is a name-based UUID that uses SHA-1 hashing.
      *
      * @param namespace the namespace UUID
@@ -238,6 +284,34 @@ public final class UUIDs {
     }
 
     /**
+     * sha1UUID is an alias for {@link #v5UUID(String)}<p>
+     * UUIDv5 is a name-based UUID that uses SHA-1 hashing.
+     * Version 5 UUIDs generated without a namespace are not standard compliant. There is a risk of semantic
+     * collision.
+     *
+     * @param name      the name string
+     * @return a Version 5 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.5">RFC 9562 Section 5.5</a>
+     */
+    public static UUID sha1UUID(String name) {
+        return v5UUID(name);
+    }
+
+    /**
+     * UUIDv5 is a name-based UUID that uses SHA-1 hashing.<p>
+     * Version 5 UUIDs generated without a namespace are not standard compliant. There is a risk of semantic
+     * collision.
+     *
+     * @param name      the name string
+     * @return a Version 5 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.5">RFC 9562 Section 5.5</a>
+     */
+    public static UUID v5UUID(String name) {
+        return Rfc9562Version5.generate(name);
+    }
+
+    /**
+     * sortableTimeBasedUUID is an alias for {@link #v6UUID()}<p>
      * UUIDv6 is a time-ordered UUID with the 60-bit timestamp placed in the most significant bits
      * to improve lexicographic sortability.
      *
@@ -260,6 +334,7 @@ public final class UUIDs {
     }
 
     /**
+     * unixTimeBasedUUID is an alias for {@link #v7UUID()}<p>
      * UUIDv7 encodes a 48-bit Unix timestamp in milliseconds plus 74 random bits.
      *
      * @return a Version 7 UUID
@@ -280,6 +355,7 @@ public final class UUIDs {
     }
 
     /**
+     * customUUID is an alias for {@link #v8UUID()}<p>
      * UUIDv8 is reserved for application-specific semantics.
      *
      * @return a Version 8 UUID
@@ -290,6 +366,17 @@ public final class UUIDs {
     }
 
     /**
+     * UUIDv8 is reserved for application-specific semantics.
+     *
+     * @return a Version 8 UUID
+     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.8">RFC 9562 Section 5.8</a>
+     */
+    public static UUID v8UUID() {
+        return v8UUID(v4UUID());
+    }
+
+    /**
+     * customUUID is an alias for {@link #v8UUID(UUID)}<p>
      * UUIDv8 generated from a source UUID by rewriting version and variant.
      *
      * @param source an existing UUID to base the custom UUID on
@@ -298,16 +385,6 @@ public final class UUIDs {
      */
     public static UUID customUUID(UUID source) {
         return v8UUID(source);
-    }
-
-    /**
-     * UUIDv8 is reserved for application-specific semantics.
-     *
-     * @return a Version 8 UUID
-     * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.8">RFC 9562 Section 5.8</a>
-     */
-    public static UUID v8UUID() {
-        return v8UUID(v4UUID());
     }
 
     /**
@@ -409,11 +486,11 @@ public final class UUIDs {
     /**
      * Parses a UUID from a standard string representation.
      *
-     * @param str the UUID string
-     * @return the UUID instance
+     * @param name the UUID string
+     * @return the UUID
      */
-    public static UUID uuid(String str) {
-        return UUID.fromString(str);
+    public static UUID uuid(String name) {
+        return UUID.fromString(name);
     }
 
     private static String formatBinaryString(String binaryString) {

@@ -35,19 +35,19 @@ final class Bytes {
     }
 
     public static byte[] bytes(UUID uuid) {
-        ByteBuffer bb = ByteBuffer.allocate(16);
+        var bb = ByteBuffer.allocate(16);
         bb.putLong(uuid.getMostSignificantBits());
         bb.putLong(uuid.getLeastSignificantBits());
         return bb.array();
     }
 
     public static UUID bytesToUUID(byte[] data) {
-        ByteBuffer bb = ByteBuffer.wrap(data);
+        var bb = ByteBuffer.wrap(data);
         return new UUID(bb.getLong(), bb.getLong());
     }
 
     public static byte[] random(int bytes) {
-        byte[] result = new byte[bytes];
+        var result = new byte[bytes];
         random(result);
         return result;
     }
@@ -57,7 +57,7 @@ final class Bytes {
     }
 
     public static byte[] concat(byte[] a, byte[] b) {
-        byte[] result = Arrays.copyOf(a, a.length + b.length);
+        var result = Arrays.copyOf(a, a.length + b.length);
         System.arraycopy(b, 0, result, a.length, b.length);
         return result;
     }
@@ -70,8 +70,8 @@ final class Bytes {
 
     public static long bytesToLong(byte[] data, int length, boolean reverse) {
         long result = 0;
-        for (int i = 0; i < length; i++) {
-            int idx = reverse ? (length - 1 - i) : i;
+        for (var i = 0; i < length; i++) {
+            var idx = reverse ? (length - 1 - i) : i;
             result |= ((long) data[idx] & 0xFFL) << (8 * i);
         }
         return result;
