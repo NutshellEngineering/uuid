@@ -29,7 +29,6 @@ import static uu.id.Epoch.UUID_UTC_BASE_TIME;
  * switched.<p>
  * In layman's terms, time_high relates to the date, hour, and seconds,
  * time_mid is milliseconds, and time_low relates to nanoseconds.<p>
- * Because of the layout of
  * <pre>{@code
  *    0                   1                   2                   3
  *     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1

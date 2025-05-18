@@ -16,8 +16,12 @@
 
 package uu.id;
 
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
 import java.time.Instant;
 
+@API(status = Status.INTERNAL)
 final class Epoch {
     static final Instant UUID_UTC_BASE_TIME = Instant.ofEpochMilli(-12219292800000L);
 }

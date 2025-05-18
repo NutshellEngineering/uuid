@@ -16,6 +16,9 @@
 
 package uu.id;
 
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -23,6 +26,7 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.UUID;
 
+@API(status = Status.INTERNAL)
 final class Bytes {
 
     private static final SecureRandom RANDOM = new SecureRandom();

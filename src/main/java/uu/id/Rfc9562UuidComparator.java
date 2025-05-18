@@ -16,13 +16,17 @@
 
 package uu.id;
 
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.UUID;
 
 import static uu.id.Bytes.bytes;
 
-class Rfc9562UuidComparator implements Comparator<UUID>, Serializable {
+@API(status = Status.INTERNAL)
+final class Rfc9562UuidComparator implements Comparator<UUID>, Serializable {
     @Override
     public int compare(UUID u1, UUID u2) {
         var b1 = bytes(u1);
