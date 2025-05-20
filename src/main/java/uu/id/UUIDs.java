@@ -491,9 +491,14 @@ public final class UUIDs {
      * @return the UUID
      * @throws IllegalArgumentException If name does not conform to the string representation as
      *                                  described in {@link UUID#toString}
+     * @see <a href="https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8216407">JDK Bug 8216407</a>
      */
     public static UUID uuid(String name) {
-        if (name.getBytes(StandardCharsets.UTF_8).length != 36) {
+        if (name.getBytes(StandardCharsets.UTF_8).length != 36
+                || name.charAt(8) != '-'
+                || name.charAt(13) != '-'
+                || name.charAt(18) != '-'
+                || name.charAt(23) != '-') {
             throw new IllegalArgumentException("Invalid UUID string: " + name);
         }
         return UUID.fromString(name);

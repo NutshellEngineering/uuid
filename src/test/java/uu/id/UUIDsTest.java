@@ -170,16 +170,18 @@ final class UUIDsTest {
 
     @Test
     void uuid_throws_for_bad_input() {
-        // not a bug, but unintuitive behaviour: the JDK will fill missing bytes
-        // we'll throw IAE instead
-        var shortUuid = "6ba7b810-9dad-11d1-b4-00c04fd430c8";
+        // https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8216407
+        // JDK's UUID#fromString is relaxed about invalid inputs
+        var shortUuid = "1-1-1-1-1";
+        var invalidUuid = "010203040506-8f76-11e8-61d5-6be6b450";
         assertAll(
                 // preconditions
                 () -> assertNotEquals(36, shortUuid.getBytes().length),
                 () -> assertDoesNotThrow(() -> UUID.fromString(shortUuid)),
-                () -> assertEquals(uuid("6ba7b810-9dad-11d1-00b4-00c04fd430c8"), UUID.fromString(shortUuid)),
+                () -> assertDoesNotThrow(() -> UUID.fromString(invalidUuid)),
+                () -> assertEquals(uuid("00000001-0001-0001-0001-000000000001"), UUID.fromString(shortUuid)),
                 // end of preconditions
-                () -> assertThrows(IllegalArgumentException.class, () -> uuid(shortUuid))
-        );
+                () -> assertThrows(IllegalArgumentException.class, () -> uuid(shortUuid)),
+                () -> assertThrows(IllegalArgumentException.class, () -> uuid(invalidUuid)));
     }
 }

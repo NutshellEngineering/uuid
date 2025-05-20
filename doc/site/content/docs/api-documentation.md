@@ -252,12 +252,16 @@ Return the UUID
 
 ### `UUID uuid(String name)`
 
+{{% hint warning %}}
+Java’s default [`UUID.fromString()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/UUID.html#fromString(java.lang.String)) accepts input that does not match the expected format of a UUID.
+{{% /hint %}}
+
 Parses a UUID from its string representation.
 
 Param name the UUID string  
 Return the parsed UUID
-Throws UnsupportedOperationException If name does not conform to the string representation as described in [`UUID#toString()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/UUID.html#toString())
-
+Throws UnsupportedOperationException If name does not conform to the string representation as described in [`UUID.toString()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/UUID.html#toString())
+See [JDK Bug 8216407](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8216407)
 ---
 
 ### `String toBinaryString(UUID uuid)`
@@ -272,7 +276,7 @@ Return a binary string like `00000000-00000000-...`
 ## Comparison
 
 {{% hint warning %}}
-Java’s default [`UUID.compareTo()`](https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html#compareTo-java.util.UUID-) can produce unexpected results when sorting — consider using UUIDs.comparator() instead.
+Java’s default [`UUID.compareTo()`](https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html#compareTo-java.util.UUID-) can produce unexpected results when sorting. Consider using UUIDs.comparator() instead.
 {{% /hint %}}
 
 ### `Comparator<UUID> comparator()`
