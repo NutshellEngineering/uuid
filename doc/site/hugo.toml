@@ -1,0 +1,23 @@
+baseURL = 'https://nutshellengineering.github.io/uuid/'
+languageCode = 'en-gb'
+title = 'uuid'
+disablePathToLower = true
+defaultContentLanguage = "en"
+
+[module]
+[[module.imports]]
+path = 'github.com/alex-shpak/hugo-book'
+
+[params]
+BookTheme = 'auto'
+BookToC = true
+BookSearch = false
+#BookLogo = 'logo.png'
+
+[languages]
+[languages.en]
+languageName = "English"
+weight = 1
+
+[markup.goldmark.renderer]
+unsafe = true
