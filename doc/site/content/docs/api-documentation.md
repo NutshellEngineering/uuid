@@ -259,16 +259,17 @@ Java’s default [`UUID.fromString()`](https://docs.oracle.com/en/java/javase/17
 Parses a UUID from its string representation.
 
 Param name the UUID string  
-Return the parsed UUID
-Throws UnsupportedOperationException If name does not conform to the string representation as described in [`UUID.toString()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/UUID.html#toString())
+Return the parsed UUID  
+Throws UnsupportedOperationException If name does not conform to the string representation as described in [`UUID.toString()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/UUID.html#toString())  
 See [JDK Bug 8216407](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8216407)
+
 ---
 
 ### `String toBinaryString(UUID uuid)`
 
 Returns a grouped binary string representation of the UUID.
 
-Param uuid the UUID to convert  
+Param uuid the UUID to convert   
 Return a binary string like `00000000-00000000-...`
 
 ---
