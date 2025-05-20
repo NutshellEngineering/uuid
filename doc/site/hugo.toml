@@ -12,7 +12,7 @@ path = 'github.com/alex-shpak/hugo-book'
 BookTheme = 'auto'
 BookToC = true
 BookSearch = false
-#BookLogo = 'logo.png'
+BookLogo = 'logo.png'
 
 [languages]
 [languages.en]

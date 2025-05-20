@@ -1,0 +1,34 @@
+:root {
+  --nutshell-dark-purple: #6B21A8;
+  --nutshell-light-purple: #C084FC;
+  --nutshell-grey-active: #A8A29E;
+}
+
+.menu-custom-item {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+
+.book-menu .external-icon {
+font-size: 0.8em;
+margin-left: 0.4em;
+opacity: 0.7;
+vertical-align: middle;
+}
+
+article a,
+aside.book-toc a,
+#TableOfContents * a {
+  color: var(--nutshell-dark-purple);
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--nutshell-light-purple);
+  }
+
+  &:active {
+    color: var(--nutshell-grey-active);
+  }
+}

@@ -4,9 +4,9 @@ bookFlatSection: true
 title: "API Documentation"
 ---
 
-## API Documentation
+# API Documentation
 
-### UUIDs
+## UUIDs
 
 Static utility methods for creating, parsing, inspecting, and comparing [`UUID`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/UUID.html) instances in accordance with [RFC 9562](https://datatracker.ietf.org/doc/html/rfc9562).
 
@@ -26,7 +26,7 @@ It also defines constants and utilities for working with the special values defi
 - [`maxUUID()`](#uuid-maxuuid) — Max UUID (all bits set to one)
 - [`NS`](#enum-uuidsns) — Standard name spaces for deterministic UUIDs
 
-Unlike the default [`UUID.compareTo(UUID)`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/UUID.html#compareTo(java.util.UUID)) implementation, which uses signed component-wise comparison and is known to produce incorrect results in some edge cases, this class offers a correct comparator via [`comparator()`](#comparatoruuid) that performs canonical bytewise comparison as defined in [RFC 9562 Section 6](https://datatracker.ietf.org/doc/html/rfc9562#section-6).
+Unlike the default [`UUID.compareTo(UUID)`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/UUID.html#compareTo(java.util.UUID)) implementation, which uses signed component-wise comparison and is known to produce incorrect results in some edge cases, this class offers a correct comparator via [`comparator()`](#comparatoruuid-comparator) that performs canonical bytewise comparison as defined in [RFC 9562 Section 6](https://datatracker.ietf.org/doc/html/rfc9562#section-6).
 
 This class is immutable and thread-safe.
 
@@ -34,9 +34,9 @@ Since 1.0.0
 See [`UUID`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/UUID.html)  
 See [RFC 9562](https://datatracker.ietf.org/doc/html/rfc9562)
 
-### Constants
+## Constants
 
-#### `public static final UUID NIL_UUID`
+### `public static final UUID NIL_UUID`
 
 The nil UUID is a special form of UUID with all 128 bits set to zero.
 
@@ -44,7 +44,7 @@ See [RFC 9562 §5.9](https://datatracker.ietf.org/doc/html/rfc9562#section-5.9)
 
 ---
 
-#### `public static final UUID MIN_UUID`
+### `public static final UUID MIN_UUID`
 
 Alias for `NIL_UUID`.
 
@@ -52,7 +52,7 @@ See [RFC 9562 §5.9](https://datatracker.ietf.org/doc/html/rfc9562#section-5.9)
 
 ---
 
-#### `public static final UUID MAX_UUID`
+### `public static final UUID MAX_UUID`
 
 The Max UUID is a special form of UUID with all 128 bits set to one.
 
@@ -60,7 +60,7 @@ See [RFC 9562 §5.10](https://datatracker.ietf.org/doc/html/rfc9562#section-5.10
 
 ---
 
-### Enum: `UUIDs.NS`
+## Enum: `UUIDs.NS`
 
 Well-known namespace UUIDs used for name-based generation.
 
@@ -73,9 +73,9 @@ See [RFC 9562 §6.5](https://datatracker.ietf.org/doc/html/rfc9562#section-6.5)
 
 ---
 
-### UUID Generation
+## UUID Generation
 
-#### `UUID v1UUID()`
+### `UUID v1UUID()`
 
 Generates a Version 1 time-based UUID.
 
@@ -84,7 +84,7 @@ See [RFC 9562 §5.1](https://datatracker.ietf.org/doc/html/rfc9562#section-5.1)
 
 ---
 
-#### `UUID v3UUID(NS namespace, String name)`
+### `UUID v3UUID(NS namespace, String name)`
 
 Generates a Version 3 name-based UUID using MD5 hashing.
 
@@ -95,7 +95,7 @@ See [RFC 9562 §5.3](https://datatracker.ietf.org/doc/html/rfc9562#section-5.3)
 
 ---
 
-#### `UUID v4UUID()`
+### `UUID v4UUID()`
 
 Generates a Version 4 random UUID with 122 bits of randomness.
 
@@ -104,7 +104,7 @@ See [RFC 9562 §5.4](https://datatracker.ietf.org/doc/html/rfc9562#section-5.4)
 
 ---
 
-#### `UUID v5UUID(NS namespace, String name)`
+### `UUID v5UUID(NS namespace, String name)`
 
 Generates a Version 5 name-based UUID using SHA-1 hashing.
 
@@ -115,7 +115,7 @@ See [RFC 9562 §5.5](https://datatracker.ietf.org/doc/html/rfc9562#section-5.5)
 
 ---
 
-#### `UUID v6UUID()`
+### `UUID v6UUID()`
 
 Generates a Version 6 time-ordered UUID.
 
@@ -124,7 +124,7 @@ See [RFC 9562 §5.6](https://datatracker.ietf.org/doc/html/rfc9562#section-5.6)
 
 ---
 
-#### `UUID v7UUID()`
+### `UUID v7UUID()`
 
 Generates a Version 7 UUID with a 48-bit Unix timestamp and 74 bits of randomness.
 
@@ -133,7 +133,7 @@ See [RFC 9562 §5.7](https://datatracker.ietf.org/doc/html/rfc9562#section-5.7)
 
 ---
 
-#### `UUID v8UUID()`
+### `UUID v8UUID()`
 
 Generates a Version 8 custom UUID from a random base.
 
@@ -142,7 +142,7 @@ See [RFC 9562 §5.8](https://datatracker.ietf.org/doc/html/rfc9562#section-5.8)
 
 ---
 
-#### `UUID v8UUID(UUID source)`
+### `UUID v8UUID(UUID source)`
 
 Generates a Version 8 UUID from an existing source UUID.
 
@@ -152,9 +152,9 @@ See [RFC 9562 §5.8](https://datatracker.ietf.org/doc/html/rfc9562#section-5.8)
 
 ---
 
-### Special Values
+## Special Values
 
-#### `UUID nilUUID()`
+### `UUID nilUUID()`
 
 Returns the Nil UUID (`00000000-0000-0000-0000-000000000000`).
 
@@ -163,7 +163,7 @@ See [RFC 9562 §5.9](https://datatracker.ietf.org/doc/html/rfc9562#section-5.9)
 
 ---
 
-#### `UUID maxUUID()`
+### `UUID maxUUID()`
 
 Returns the Max UUID (`ffffffff-ffff-ffff-ffff-ffffffffffff`).
 
@@ -172,9 +172,9 @@ See [RFC 9562 §5.10](https://datatracker.ietf.org/doc/html/rfc9562#section-5.10
 
 ---
 
-### Timestamps
+## Timestamps
 
-#### `Instant realTimestamp(UUID uuid)`
+### `Instant realTimestamp(UUID uuid)`
 
 Extracts the real timestamp from a time-based UUID (v1, v6, or v7).
 
@@ -184,7 +184,7 @@ Throws UnsupportedOperationException if the UUID version is not time-based
 
 ---
 
-#### `Instant realTimestamp(long timestamp)`
+### `Instant realTimestamp(long timestamp)`
 
 Converts a 60-bit UUID timestamp (in 100-nanosecond units) into an `Instant`.
 
@@ -193,9 +193,9 @@ Return the equivalent `Instant`
 
 ---
 
-### Parsing and Conversion
+## Parsing and Conversion
 
-#### `UUID uuid(byte[] data)`
+### `UUID uuid(byte[] data)`
 
 Converts a 16-byte array to a UUID.
 
@@ -204,7 +204,7 @@ Return the UUID
 
 ---
 
-#### `UUID uuid(String name)`
+### `UUID uuid(String name)`
 
 Parses a UUID from its string representation.
 
@@ -213,7 +213,7 @@ Return the parsed UUID
 
 ---
 
-#### `String toBinaryString(UUID uuid)`
+### `String toBinaryString(UUID uuid)`
 
 Returns a grouped binary string representation of the UUID.
 
@@ -222,13 +222,13 @@ Return a binary string like `00000000-00000000-...`
 
 ---
 
-### Comparison
+## Comparison
 
 {{% hint warning %}}
 Java’s default UUID.compareTo() can produce unexpected results when sorting — consider using UUIDs.comparator() instead.
 {{% /hint %}}
 
-#### `Comparator<UUID> comparator()`
+### `Comparator<UUID> comparator()`
 
 Returns a comparator that performs correct unsigned bytewise comparison.
 
