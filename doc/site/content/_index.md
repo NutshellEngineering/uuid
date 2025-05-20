@@ -73,12 +73,16 @@ var v5 = v5UUID(NS.URL, "https://example.com");    // SHA-1
 ## Compare UUIDs Canonically
 
 ```java
+import uu.id.UUIDs;  
+
 list.sort(UUIDs.comparator());  // RFC 9562-compliant sort
 ```
 
 ## Convert from bytes or string
 
 ```java
+import static uu.id.UUIDs.*; 
+
 var u1 = uuid("6ba7b810-9dad-11d1-80b4-00c04fd430c8");
 var u2 = uuid(byteArray);
 ```
