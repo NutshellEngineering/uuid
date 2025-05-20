@@ -1,0 +1,15 @@
+{
+  "name": "uuid",
+  "short_name": "uuid",
+  "start_url": "/uuid/",
+  "scope": "/uuid/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/uuid/favicon.svg",
+      "sizes": "512x512"
+    }
+  ]
+}
