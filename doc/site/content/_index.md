@@ -53,22 +53,21 @@ dependencies {
 ## Generate UUIDs
 
 ```java
-import uu.id.UUIDs;
-import java.util.UUID;
+import static uu.id.UUIDs.*;
 
-UUID v1 = UUIDs.v1UUID();       // Time-based UUID
-UUID v4 = UUIDs.v4UUID();       // Random UUID
-UUID v6 = UUIDs.v6UUID();       // Sortable UUID
-UUID v7 = UUIDs.v7UUID();       // Unix-time UUID
+var v1 = v1UUID();       // Time-based UUID
+var v4 = v4UUID();       // Random UUID
+var v6 = v6UUID();       // Sortable UUID
+var v7 = v7UUID();       // Unix-time UUID
 ```
 
 ## Name-based UUIDs
 
 ```java
-import uu.id.UUIDs.NS;
+import static uu.id.UUIDs.*; 
 
-UUID v3 = UUIDs.v3UUID(NS.DNS, "example.com");            // MD5
-UUID v5 = UUIDs.v5UUID(NS.URL, "https://example.com");    // SHA-1
+var v3 = v3UUID(NS.DNS, "example.com");            // MD5
+var v5 = v5UUID(NS.URL, "https://example.com");    // SHA-1
 ```
 
 ## Compare UUIDs Canonically
@@ -80,12 +79,14 @@ list.sort(UUIDs.comparator());  // RFC 9562-compliant sort
 ## Convert from bytes or string
 
 ```java
-UUID u1 = UUIDs.uuid("6ba7b810-9dad-11d1-80b4-00c04fd430c8");
-UUID u2 = UUIDs.uuid(byteArray);
+var u1 = uuid("6ba7b810-9dad-11d1-80b4-00c04fd430c8");
+var u2 = uuid(byteArray);
 ```
 
 ## Timestamp from time-based UUIDs
 
 ```java
+import uu.id.UUIDs;
+
 Instant timestamp = UUIDs.realTimestamp(UUIDs.v1UUID());
 ```
