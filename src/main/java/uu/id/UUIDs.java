@@ -19,6 +19,7 @@ package uu.id;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Comparator;
 import java.util.UUID;
@@ -52,9 +53,9 @@ import static uu.id.Epoch.UUID_UTC_BASE_TIME;
  * <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-6">RFC 9562 Section 6</a>.<p>
  * This class is immutable and thread-safe.
  *
- * @since 1.0.0
  * @see java.util.UUID
  * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562">RFC 9562 </a>
+ * @since 1.0.0
  */
 @SuppressWarnings("unused")
 @API(status = Status.STABLE, since = "1.0.0")
@@ -200,7 +201,7 @@ public final class UUIDs {
      * UUIDs generated using this method are identical to UUIDs created using {@link UUID#nameUUIDFromBytes(byte[])},
      * and carry the same risk of semantic collision.
      *
-     * @param name      the name string
+     * @param name the name string
      * @return a Version 3 UUID
      * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.3">RFC 9562 Section 5.3</a>
      */
@@ -215,7 +216,7 @@ public final class UUIDs {
      * UUIDs generated using this method are identical to UUIDs created using {@link UUID#nameUUIDFromBytes(byte[])},
      * and carry the same risk of semantic collision.
      *
-     * @param name      the name string
+     * @param name the name string
      * @return a Version 3 UUID
      * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.3">RFC 9562 Section 5.3</a>
      */
@@ -229,7 +230,7 @@ public final class UUIDs {
      * UUIDs generated using this method are identical to UUIDs created using {@link UUID#nameUUIDFromBytes(byte[])},
      * and carry the same risk of semantic collision.
      *
-     * @param name      the name string
+     * @param name the name string
      * @return a Version 3 UUID
      * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.3">RFC 9562 Section 5.3</a>
      */
@@ -289,7 +290,7 @@ public final class UUIDs {
      * Version 5 UUIDs generated without a namespace are not standard compliant. There is a risk of semantic
      * collision.
      *
-     * @param name      the name string
+     * @param name the name string
      * @return a Version 5 UUID
      * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.5">RFC 9562 Section 5.5</a>
      */
@@ -302,7 +303,7 @@ public final class UUIDs {
      * Version 5 UUIDs generated without a namespace are not standard compliant. There is a risk of semantic
      * collision.
      *
-     * @param name      the name string
+     * @param name the name string
      * @return a Version 5 UUID
      * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.5">RFC 9562 Section 5.5</a>
      */
@@ -488,8 +489,13 @@ public final class UUIDs {
      *
      * @param name the UUID string
      * @return the UUID
+     * @throws IllegalArgumentException If name does not conform to the string representation as
+     *                                  described in {@link UUID#toString}
      */
     public static UUID uuid(String name) {
+        if (name.getBytes(StandardCharsets.UTF_8).length != 36) {
+            throw new IllegalArgumentException("Invalid UUID string: " + name);
+        }
         return UUID.fromString(name);
     }
 

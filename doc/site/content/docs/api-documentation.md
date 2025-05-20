@@ -256,6 +256,7 @@ Parses a UUID from its string representation.
 
 Param name the UUID string  
 Return the parsed UUID
+Throws UnsupportedOperationException If name does not conform to the string representation as described in [`UUID#toString()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/UUID.html#toString())
 
 ---
 
