@@ -13,9 +13,9 @@ This library supports:
 - Correct RFC-compliant UUID comparison
 - UUID timestamp extraction
 
-# Getting Started
+## Getting Started
 
-## Add the Dependency
+### Add the Dependency
 
 {{% tabs "id" %}}
 {{% tab "Maven" %}}
@@ -50,27 +50,23 @@ dependencies {
 {{% /tab %}}
 {{% /tabs %}}
 
-## Generate UUIDs
+## Example Usage
+
+### Create UUIDs
 
 ```java
 import static uu.id.UUIDs.*;
 
-var v1 = v1UUID();       // Time-based UUID
-var v4 = v4UUID();       // Random UUID
-var v6 = v6UUID();       // Sortable UUID
-var v7 = v7UUID();       // Unix-time UUID
+var v1 = v1UUID();                              // Time-based UUID
+var v3 = v3UUID(NS.DNS, "example.com");         // MD5
+var v4 = v4UUID();                              // Random UUID
+var v5 = v5UUID(NS.URL, "https://example.com"); // SHA-1
+var v6 = v6UUID();                              // Sortable UUID
+var v7 = v7UUID();                              // Unix-time UUID
+var v8 = v8UUID();                              // Custom UUID
 ```
 
-## Name-based UUIDs
-
-```java
-import static uu.id.UUIDs.*; 
-
-var v3 = v3UUID(NS.DNS, "example.com");            // MD5
-var v5 = v5UUID(NS.URL, "https://example.com");    // SHA-1
-```
-
-## Compare UUIDs Canonically
+### Compare UUIDs Canonically
 
 ```java
 import uu.id.UUIDs;  
@@ -78,7 +74,7 @@ import uu.id.UUIDs;
 list.sort(UUIDs.comparator());  // RFC 9562-compliant sort
 ```
 
-## Convert from bytes or string
+### Convert from bytes or string
 
 ```java
 import static uu.id.UUIDs.*; 
@@ -87,7 +83,7 @@ var u1 = uuid("6ba7b810-9dad-11d1-80b4-00c04fd430c8");
 var u2 = uuid(byteArray);
 ```
 
-## Timestamp from time-based UUIDs
+### Timestamp from time-based UUIDs
 
 ```java
 import uu.id.UUIDs;

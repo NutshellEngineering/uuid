@@ -1,7 +1,8 @@
 :root {
-  --nutshell-dark-purple: #6B21A8;
-  --nutshell-light-purple: #C084FC;
-  --nutshell-grey-active: #A8A29E;
+  --nutshell-dark-purple: #7c3aed;
+  --nutshell-light-purple: #c084fc;
+  --nutshell-text-primary: #4c4c49;
+  --nutshell-text-secondary: #787579;
 }
 
 .menu-custom-item {
@@ -26,9 +27,29 @@ aside.book-toc a,
 
   &:hover {
     color: var(--nutshell-light-purple);
+    opacity: 1;
   }
 
   &:active {
-    color: var(--nutshell-grey-active);
+    color: var(--nutshell-text-secondary);
+  }
+}
+
+aside.book-toc a,
+#TableOfContents * a {
+    font-size: 0.875rem;
+}
+
+.book-menu a.active,
+aside.book-menu * a {
+  color: var(--nutshell-text-primary);
+
+  &:hover {
+    color: var(--nutshell-text-secondary);
+    opacity: 1;
+  }
+
+  &:active {
+    color: var(--nutshell-text-secondary);
   }
 }
