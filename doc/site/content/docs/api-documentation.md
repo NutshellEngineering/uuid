@@ -35,8 +35,8 @@ Unlike the default [`UUID.compareTo(UUID)`](https://docs.oracle.com/en/java/java
 This class is immutable and thread-safe.
 
 Since 1.0.0  
-See [`UUID`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/UUID.html)  
-See [RFC 9562](https://datatracker.ietf.org/doc/html/rfc9562)
+See: [`UUID`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/UUID.html)  
+See: [RFC 9562](https://datatracker.ietf.org/doc/html/rfc9562)
 
 ## Constants
 
@@ -44,7 +44,7 @@ See [RFC 9562](https://datatracker.ietf.org/doc/html/rfc9562)
 
 The nil UUID is a special form of UUID with all 128 bits set to zero.
 
-See [RFC 9562 §5.9](https://datatracker.ietf.org/doc/html/rfc9562#section-5.9)
+See: [RFC 9562 §5.9](https://datatracker.ietf.org/doc/html/rfc9562#section-5.9)
 
 ---
 
@@ -52,7 +52,7 @@ See [RFC 9562 §5.9](https://datatracker.ietf.org/doc/html/rfc9562#section-5.9)
 
 Alias for `NIL_UUID`.
 
-See [RFC 9562 §5.9](https://datatracker.ietf.org/doc/html/rfc9562#section-5.9)
+See: [RFC 9562 §5.9](https://datatracker.ietf.org/doc/html/rfc9562#section-5.9)
 
 ---
 
@@ -60,7 +60,27 @@ See [RFC 9562 §5.9](https://datatracker.ietf.org/doc/html/rfc9562#section-5.9)
 
 The Max UUID is a special form of UUID with all 128 bits set to one.
 
-See [RFC 9562 §5.10](https://datatracker.ietf.org/doc/html/rfc9562#section-5.10)
+See: [RFC 9562 §5.10](https://datatracker.ietf.org/doc/html/rfc9562#section-5.10)
+
+---
+
+## Interface: `Namespace`
+
+{{% hint info %}}
+See: the section [Creating Custom Namespaces](/uuid/docs/creating-custom-namespaces) for more information.
+{{% /hint %}}
+
+Represents a namespace identifier used for name-based UUID generation (versions 3 and 5). <p>
+Implementations of this interface provide a specific {@link UUID} that serves as the namespace
+for generating name-based UUIDs, as defined in
+<a href="https://datatracker.ietf.org/doc/html/rfc9562#section-6.5">RFC 9562, Section 6.5</a>.
+
+---
+
+## `UUIDs.Namespace.namespace()`
+
+Returns the [`UUID`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/UUID.html) that identifies this namespace.
+Returns: the namespace UUID
 
 ---
 
@@ -73,7 +93,7 @@ Well-known namespace UUIDs used for name-based generation.
 - `OID` — ISO OIDs
 - `X500` — X.500 Distinguished Names
 
-See [RFC 9562 §6.5](https://datatracker.ietf.org/doc/html/rfc9562#section-6.5)
+See: [RFC 9562 §6.5](https://datatracker.ietf.org/doc/html/rfc9562#section-6.5)
 
 ---
 
@@ -84,8 +104,8 @@ See [RFC 9562 §6.5](https://datatracker.ietf.org/doc/html/rfc9562#section-6.5)
 
 Generates a Version 1 time-based UUID.
 
-Return a Version 1 UUID  
-See [RFC 9562 §5.1](https://datatracker.ietf.org/doc/html/rfc9562#section-5.1)
+Returns: a Version 1 UUID  
+See: [RFC 9562 §5.1](https://datatracker.ietf.org/doc/html/rfc9562#section-5.1)
 
 ---
 
@@ -94,10 +114,10 @@ See [RFC 9562 §5.1](https://datatracker.ietf.org/doc/html/rfc9562#section-5.1)
 
 Generates a Version 3 name-based UUID using MD5 hashing.
 
-Param namespace the namespace UUID  
-Param name the name string  
-Return a Version 3 UUID  
-See [RFC 9562 §5.3](https://datatracker.ietf.org/doc/html/rfc9562#section-5.3)
+Param: namespace the namespace UUID  
+Param: name the name string  
+Returns: a Version 3 UUID  
+See: [RFC 9562 §5.3](https://datatracker.ietf.org/doc/html/rfc9562#section-5.3)
 
 ---
 
@@ -113,8 +133,8 @@ This method is provided for compatibility with the JDK’s built-in [`UUID.nameU
 
 Generates a non-standard Version 3 UUID.
 
-Return a Version 3 UUID  
-See [RFC 9562 §5.3](https://datatracker.ietf.org/doc/html/rfc9562#section-5.3)
+Returns: a Version 3 UUID  
+See: [RFC 9562 §5.3](https://datatracker.ietf.org/doc/html/rfc9562#section-5.3)
 
 ---
 
@@ -123,8 +143,8 @@ See [RFC 9562 §5.3](https://datatracker.ietf.org/doc/html/rfc9562#section-5.3)
 
 Generates a Version 4 random UUID with 122 bits of randomness.
 
-Return a Version 4 UUID  
-See [RFC 9562 §5.4](https://datatracker.ietf.org/doc/html/rfc9562#section-5.4)
+Returns: a Version 4 UUID  
+See: [RFC 9562 §5.4](https://datatracker.ietf.org/doc/html/rfc9562#section-5.4)
 
 ---
 
@@ -133,10 +153,10 @@ See [RFC 9562 §5.4](https://datatracker.ietf.org/doc/html/rfc9562#section-5.4)
 
 Generates a Version 5 name-based UUID using SHA-1 hashing.
 
-Param namespace the namespace UUID  
-Param name the name string  
-Return a Version 5 UUID  
-See [RFC 9562 §5.5](https://datatracker.ietf.org/doc/html/rfc9562#section-5.5)
+Param: namespace the namespace UUID  
+Param: name the name string  
+Returns: a Version 5 UUID  
+See: [RFC 9562 §5.5](https://datatracker.ietf.org/doc/html/rfc9562#section-5.5)
 
 ---
 
@@ -152,8 +172,8 @@ This method is provided only for symmetry with `v3UUID(String)`, and should not 
 
 Generates a non-standard Version 5 UUID.
 
-Return a Version 5 UUID  
-See [RFC 9562 §5.5](https://datatracker.ietf.org/doc/html/rfc9562#section-5.5)
+Returns: a Version 5 UUID  
+See: [RFC 9562 §5.5](https://datatracker.ietf.org/doc/html/rfc9562#section-5.5)
 
 ---
 
@@ -162,8 +182,8 @@ See [RFC 9562 §5.5](https://datatracker.ietf.org/doc/html/rfc9562#section-5.5)
 
 Generates a Version 6 time-ordered UUID.
 
-Return a Version 6 UUID  
-See [RFC 9562 §5.6](https://datatracker.ietf.org/doc/html/rfc9562#section-5.6)
+Returns: a Version 6 UUID  
+See: [RFC 9562 §5.6](https://datatracker.ietf.org/doc/html/rfc9562#section-5.6)
 
 ---
 
@@ -172,8 +192,8 @@ See [RFC 9562 §5.6](https://datatracker.ietf.org/doc/html/rfc9562#section-5.6)
 
 Generates a Version 7 UUID with a 48-bit Unix timestamp and 74 bits of randomness.
 
-Return a Version 7 UUID  
-See [RFC 9562 §5.7](https://datatracker.ietf.org/doc/html/rfc9562#section-5.7)
+Returns: a Version 7 UUID  
+See: [RFC 9562 §5.7](https://datatracker.ietf.org/doc/html/rfc9562#section-5.7)
 
 ---
 
@@ -182,8 +202,8 @@ See [RFC 9562 §5.7](https://datatracker.ietf.org/doc/html/rfc9562#section-5.7)
 
 Generates a Version 8 custom UUID from a random base.
 
-Return a Version 8 UUID  
-See [RFC 9562 §5.8](https://datatracker.ietf.org/doc/html/rfc9562#section-5.8)
+Returns: a Version 8 UUID  
+See: [RFC 9562 §5.8](https://datatracker.ietf.org/doc/html/rfc9562#section-5.8)
 
 ---
 
@@ -192,9 +212,9 @@ See [RFC 9562 §5.8](https://datatracker.ietf.org/doc/html/rfc9562#section-5.8)
 
 Generates a Version 8 UUID from an existing source UUID.
 
-Param source the UUID to transform  
-Return a Version 8 UUID  
-See [RFC 9562 §5.8](https://datatracker.ietf.org/doc/html/rfc9562#section-5.8)
+Param: source the UUID to transform  
+Returns: a Version 8 UUID  
+See: [RFC 9562 §5.8](https://datatracker.ietf.org/doc/html/rfc9562#section-5.8)
 
 ---
 
@@ -204,8 +224,8 @@ See [RFC 9562 §5.8](https://datatracker.ietf.org/doc/html/rfc9562#section-5.8)
 
 Returns the Nil UUID (`00000000-0000-0000-0000-000000000000`).
 
-Return the Nil UUID  
-See [RFC 9562 §5.9](https://datatracker.ietf.org/doc/html/rfc9562#section-5.9)
+Returns: the Nil UUID  
+See: [RFC 9562 §5.9](https://datatracker.ietf.org/doc/html/rfc9562#section-5.9)
 
 ---
 
@@ -213,8 +233,8 @@ See [RFC 9562 §5.9](https://datatracker.ietf.org/doc/html/rfc9562#section-5.9)
 
 Returns the Max UUID (`ffffffff-ffff-ffff-ffff-ffffffffffff`).
 
-Return the Max UUID  
-See [RFC 9562 §5.10](https://datatracker.ietf.org/doc/html/rfc9562#section-5.10)
+Returns: the Max UUID  
+See: [RFC 9562 §5.10](https://datatracker.ietf.org/doc/html/rfc9562#section-5.10)
 
 ---
 
@@ -224,9 +244,9 @@ See [RFC 9562 §5.10](https://datatracker.ietf.org/doc/html/rfc9562#section-5.10
 
 Extracts the real timestamp from a time-based UUID (v1, v6, or v7).
 
-Param uuid a time-based UUID  
-Return the corresponding `Instant`  
-Throws UnsupportedOperationException if the UUID version is not time-based
+Param: uuid a time-based UUID  
+Returns: the corresponding `Instant`  
+Throws: UnsupportedOperationException if the UUID version is not time-based
 
 ---
 
@@ -234,8 +254,8 @@ Throws UnsupportedOperationException if the UUID version is not time-based
 
 Converts a 60-bit UUID timestamp (in 100-nanosecond units) into an `Instant`.
 
-Param timestamp the UUID timestamp  
-Return the equivalent `Instant`
+Param: timestamp the UUID timestamp  
+Returns: the equivalent `Instant`
 
 ---
 
@@ -245,8 +265,8 @@ Return the equivalent `Instant`
 
 Converts a 16-byte array to a UUID.
 
-Param data a byte array of length 16  
-Return the UUID
+Param: data a byte array of length 16  
+Returns: the UUID
 
 ---
 
@@ -258,10 +278,10 @@ Java’s default [`UUID.fromString()`](https://docs.oracle.com/en/java/javase/17
 
 Parses a UUID from its string representation.
 
-Param name the UUID string  
-Return the parsed UUID  
-Throws UnsupportedOperationException If name does not conform to the string representation as described in [`UUID.toString()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/UUID.html#toString())  
-See [JDK Bug 8216407](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8216407)
+Param: name the UUID string  
+Returns: the parsed UUID  
+Throws: UnsupportedOperationException If name does not conform to the string representation as described in [`UUID.toString()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/UUID.html#toString())  
+See: [JDK Bug 8216407](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8216407)
 
 ---
 
@@ -269,8 +289,8 @@ See [JDK Bug 8216407](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=82164
 
 Returns a grouped binary string representation of the UUID.
 
-Param uuid the UUID to convert   
-Return a binary string like `00000000-00000000-...`
+Param: uuid the UUID to convert   
+Returns: a binary string like `00000000-00000000-...`
 
 ---
 
@@ -284,6 +304,6 @@ Java’s default [`UUID.compareTo()`](https://docs.oracle.com/javase/8/docs/api/
 
 Returns a comparator that performs correct unsigned bytewise comparison.
 
-Return a canonical comparator  
-See [RFC 9562 §6](https://datatracker.ietf.org/doc/html/rfc9562#section-6)  
-See [JDK Bug 7025832](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=7025832)
+Returns: a canonical comparator  
+See: [RFC 9562 §6](https://datatracker.ietf.org/doc/html/rfc9562#section-6)  
+See: [JDK Bug 7025832](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=7025832)

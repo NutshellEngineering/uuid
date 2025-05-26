@@ -34,9 +34,9 @@ import static uu.id.Epoch.UUID_UTC_BASE_TIME;
  * including:
  * <ul>
  *     <li>{@linkplain #v1UUID() Version 1} (time-based UUIDs)</li>
- *     <li>{@linkplain #v3UUID(NS, String) Version 3} (name-based using MD5)</li>
+ *     <li>{@linkplain #v3UUID(Namespace, String) Version 3} (name-based using MD5)</li>
  *     <li>{@linkplain #v4UUID() Version 4} (random UUIDs)</li>
- *     <li>{@linkplain #v5UUID(NS, String) Version 5} (name-based using SHA-1)</li>
+ *     <li>{@linkplain #v5UUID(Namespace, String) Version 5} (name-based using SHA-1)</li>
  *     <li>{@linkplain #v6UUID() Version 6} (sortable, time-reordered)</li>
  *     <li>{@linkplain #v7UUID() Version 7} (Unix time-based with randomness)</li>
  *     <li>{@linkplain #v8UUID() Version 8} (custom format)</li>
@@ -90,12 +90,72 @@ public final class UUIDs {
     }
 
     /**
+     * Represents a namespace identifier used for name-based UUID generation (versions 3 and 5). <p>
+     * Implementations of this interface provide a specific {@link UUID} that serves as the namespace
+     * for generating name-based UUIDs, as defined in
+     * <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-6.5">RFC 9562, Section 6.5</a>.
+     *
+     * @apiNote
+     * This interface allows applications to define both standard and custom namespace identifiers.
+     * Well-known namespaces (such as DNS, URL, OID, and X.500) are defined by RFC 9562 and are
+     * provided as predefined constants in this library. Applications that need additional or
+     * application-specific namespaces can implement this interface to supply a custom UUID value. <p>
+     * When creating a custom namespace UUID, you should generally use a randomly or time-ordered
+     * generated UUID, such as a UUIDv4 (random) or UUIDv7 (time-ordered with random bits).
+     * This helps avoid namespace collisions and preserves uniqueness across systems.
+     *
+     * @implSpec
+     * Implementations must return a {@link UUID} that uniquely identifies the namespace. Implementers
+     * should avoid using UUIDs that conflict with the standard namespace identifiers defined in
+     * <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-6.6">RFC 9562, Section 6.6</a>,
+     * which are as follows:
+     * <ul>
+     *   <li>DNS: {@code 6ba7b810-9dad-11d1-80b4-00c04fd430c8}</li>
+     *   <li>URL: {@code 6ba7b811-9dad-11d1-80b4-00c04fd430c8}</li>
+     *   <li>OID: {@code 6ba7b812-9dad-11d1-80b4-00c04fd430c8}</li>
+     *   <li>X.500: {@code 6ba7b814-9dad-11d1-80b4-00c04fd430c8}</li>
+     * </ul>
+     * These UUIDs were originally generated using UUIDv1 (timestamp-based) and are reserved for
+     * global interoperability. To prevent accidental conflicts, do not generate new namespaces
+     * using UUIDv1, UUIDv3, or UUIDv5 — these formats may result in non-unique or repeating identifiers.
+     * Prefer UUIDv4 or UUIDv7 for generating your own application-specific namespace UUIDs.
+     *
+     * <h6>Example Implementation</h6>
+     * <pre>{@code
+     * enum MyNamespace implements Namespace {
+     *
+     *     URN(UUIDs.uuid("1fb81e8f-4f60-4cc6-a022-29d7cba9bba9"));
+     *
+     *     private final UUID namespace;
+     *
+     *     MyNamespace(UUID namespace) {
+     *         this.namespace = namespace;
+     *     }
+     *
+     *     @Override
+     *     public UUID namespace() {
+     *         return namespace;
+     *     }
+     * }
+     * }</pre>
+     */
+    public interface Namespace {
+
+        /**
+         * Returns the {@link UUID} that identifies this namespace.
+         *
+         * @return the namespace UUID
+         */
+        UUID namespace();
+    }
+
+    /**
      * Well-known namespace UUIDs used for name-based UUID generation (v3 and v5). <p>
      * These values are defined in <a href="https://datatracker.ietf.org/doc/html/rfc9562#name_based_uuid_generation">RFC 9562 Section 6.5</a>.
      *
      * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.2">RFC 9562 Section 5.2</a>
      */
-    public enum NS {
+    public enum NS implements Namespace {
         /**
          * Namespace for DNS names.
          *
@@ -129,6 +189,10 @@ public final class UUIDs {
         NS(UUID uuid) {
             this.namespace = uuid;
         }
+
+        public UUID namespace() {
+            return namespace;
+        }
     }
 
     /**
@@ -157,7 +221,7 @@ public final class UUIDs {
     }
 
     /**
-     * nameBasedUUID is an alias for {@link #v3UUID(NS, String)}<p>
+     * nameBasedUUID is an alias for {@link #v3UUID(Namespace, String)}<p>
      * UUIDv3 is a name-based UUID that uses MD5 hashing.
      *
      * @param namespace the namespace UUID
@@ -165,12 +229,12 @@ public final class UUIDs {
      * @return a Version 3 UUID
      * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.3">RFC 9562 Section 5.3</a>
      */
-    public static UUID nameBasedUUID(NS namespace, String name) {
+    public static UUID nameBasedUUID(Namespace namespace, String name) {
         return v3UUID(namespace, name);
     }
 
     /**
-     * md5UUID is an alias for {@link #v3UUID(NS, String)}<p>
+     * md5UUID is an alias for {@link #v3UUID(Namespace, String)}<p>
      * UUIDv3 is a name-based UUID that uses MD5 hashing.
      *
      * @param namespace the namespace UUID
@@ -190,8 +254,8 @@ public final class UUIDs {
      * @return a Version 3 UUID
      * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.3">RFC 9562 Section 5.3</a>
      */
-    public static UUID v3UUID(NS namespace, String name) {
-        return Rfc9562Version3.generate(namespace.namespace, name);
+    public static UUID v3UUID(Namespace namespace, String name) {
+        return Rfc9562Version3.generate(namespace.namespace(), name);
     }
 
     /**
@@ -260,7 +324,7 @@ public final class UUIDs {
     }
 
     /**
-     * sha1UUID is an alias for {@link #v5UUID(NS, String)}<p>
+     * sha1UUID is an alias for {@link #v5UUID(Namespace, String)}<p>
      * UUIDv5 is a name-based UUID that uses SHA-1 hashing.
      *
      * @param namespace the namespace UUID
@@ -268,7 +332,7 @@ public final class UUIDs {
      * @return a Version 5 UUID
      * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.5">RFC 9562 Section 5.5</a>
      */
-    public static UUID sha1UUID(NS namespace, String name) {
+    public static UUID sha1UUID(Namespace namespace, String name) {
         return v5UUID(namespace, name);
     }
 
@@ -280,8 +344,8 @@ public final class UUIDs {
      * @return a Version 5 UUID
      * @see <a href="https://datatracker.ietf.org/doc/html/rfc9562#section-5.5">RFC 9562 Section 5.5</a>
      */
-    public static UUID v5UUID(NS namespace, String name) {
-        return Rfc9562Version5.generate(namespace.namespace, name);
+    public static UUID v5UUID(Namespace namespace, String name) {
+        return Rfc9562Version5.generate(namespace.namespace(), name);
     }
 
     /**
