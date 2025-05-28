@@ -6,7 +6,7 @@ title: "Custom Namespaces"
 
 # Creating Custom Namespaces
 
-This `UUIDs.Namespace` interface allows applications to define both
+The `UUIDs.Namespace` interface allows applications to define both
 standard and custom namespace identifiers.
 
 Well-known namespaces (such as DNS, URL, OID, and X.500) are defined by
