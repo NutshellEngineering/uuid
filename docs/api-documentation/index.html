@@ -54,7 +54,9 @@ Returns: the namespace UUID</p><hr><h2 id=enum-uuidsns>Enum: <code>UUIDs.NS</cod
 <a class=anchor href=#string-urnuuid-uuid>#</a></h3><p>Returns a URN (Uniform Resource Name) for the given UUID, in the form <code>urn:uuid:&lt;uuid></code>. The “uuid” URN namespace is
 registered in RFC 9562 and specifies that a UUID URN is constructed by prefixing the canonical UUID string
 (8-4-4-4-12 hexadecimal format) with <code>urn:uuid:</code>. For example:</p><pre tabindex=0><code>urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6
-</code></pre><p>Param: uuid the UUID to be formatted as a URN<br>Returns: a URN string compliant with RFC 9562</p><hr><h3 id=string-hexuuid-uuid><code>String hex(UUID uuid)</code>
+</code></pre><p>Param: uuid the UUID to be formatted as a URN<br>Returns: a URN string compliant with RFC 9562
+See: <a href=https://www.rfc-editor.org/rfc/rfc9562.html#name-uuid-format>RFC 9562 §4</a>
+See: <a href=https://www.rfc-editor.org/rfc/rfc8141.html>RFC 8141</a></p><hr><h3 id=string-hexuuid-uuid><code>String hex(UUID uuid)</code>
 <a class=anchor href=#string-hexuuid-uuid>#</a></h3><p>Returns the 32-character hexadecimal representation of the given UUID,
 with all hyphens removed.</p><blockquote class="book-hint warning"><p>The returned string is <em>not</em> the canonical UUID
 representation defined by RFC 9562. Systems or libraries that strictly
