@@ -294,6 +294,36 @@ Returns: a binary string like `00000000-00000000-...`
 
 ---
 
+### `String urn(UUID uuid)`
+
+Returns a URN (Uniform Resource Name) for the given UUID, in the form `urn:uuid:<uuid>`. The “uuid” URN namespace is
+registered in RFC 9562 and specifies that a UUID URN is constructed by prefixing the canonical UUID string 
+(8-4-4-4-12 hexadecimal format) with `urn:uuid:`. For example:
+
+```
+urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6
+```
+
+Param: uuid the UUID to be formatted as a URN  
+Returns: a URN string compliant with RFC 9562
+
+---
+
+### `String hex(UUID uuid)`
+
+Returns the 32-character hexadecimal representation of the given UUID,
+with all hyphens removed.
+
+{{% hint warning %}}
+The returned string is *not* the canonical UUID
+representation defined by RFC 9562. Systems or libraries that strictly
+parse only the 8--4--4--4--12 hyphenated format may reject this value as
+an invalid UUID.
+{{% /hint %}}
+
+Param: uuid the UUID to convert to a 32-hex-digit string\
+Returns: 32-character hex string (no dashes)
+
 ## Comparison
 
 {{% hint warning %}}

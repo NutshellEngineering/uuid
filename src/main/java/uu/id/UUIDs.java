@@ -576,4 +576,34 @@ public final class UUIDs {
                 binaryString.substring(64, 80) + "-" +
                 binaryString.substring(80, 128);
     }
+
+    /**
+     * Returns a URN (Uniform Resource Name) for the given UUID, in the form "urn:uuid:&lt;uuid&gt;". <p>
+     * The "uuid" URN namespace is registered in RFC 9562 and specifies that a UUID URN is
+     * constructed by prefixing the canonical UUID string (8-4-4-4-12 hexadecimal format) with "urn:uuid:".
+     * For example: <pre>urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6</pre>
+     *
+     * @param uuid the UUID to be formatted as a URN
+     * @return a URN string compliant with RFC 9562
+     * @see <a href="https://www.rfc-editor.org/rfc/rfc9562.html#name-uuid-format">RFC 9562 Section 4</a>
+     * @see <a href="https://www.rfc-editor.org/rfc/rfc8141.html">RFC 8141</a>
+     */
+    public static String urn(UUID uuid) {
+        return "urn:uuid:" + uuid;
+    }
+
+    /**
+     * Returns the 32-character hexadecimal representation of the given UUID,
+     * with all hyphens removed. <p>
+     * <p><strong>Warning:</strong> The returned string is <em>not</em> the canonical
+     * UUID representation defined by RFC 9562. Systems or libraries that
+     * strictly parse only the 8–4–4–4–12 hyphenated format may reject this value
+     * as an invalid UUID.
+     *
+     * @param uuid  the UUID to convert to a 32-hex-digit string
+     * @return      32-character hex string (no dashes)
+     */
+    public static String hex(UUID uuid) {
+        return uuid.toString().replace("-", "");
+    }
 }

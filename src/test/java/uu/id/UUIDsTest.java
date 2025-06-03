@@ -184,4 +184,18 @@ final class UUIDsTest {
                 () -> assertThrows(IllegalArgumentException.class, () -> uuid(shortUuid)),
                 () -> assertThrows(IllegalArgumentException.class, () -> uuid(invalidUuid)));
     }
+
+    @Test
+    void represents_uuid_as_a_urn() {
+        assertEquals(
+                "urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
+                urn(uuid("f81d4fae-7dec-11d0-a765-00a0c91e6bf6")));
+    }
+
+    @Test
+    void represents_uuid_as_hex_string() {
+        assertEquals(
+                "f81d4fae7dec11d0a76500a0c91e6bf6",
+                hex(uuid("f81d4fae-7dec-11d0-a765-00a0c91e6bf6")));
+    }
 }
