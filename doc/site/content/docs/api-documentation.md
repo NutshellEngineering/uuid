@@ -306,6 +306,8 @@ urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6
 
 Param: uuid the UUID to be formatted as a URN  
 Returns: a URN string compliant with RFC 9562
+See: [RFC 9562 §4](https://www.rfc-editor.org/rfc/rfc9562.html#name-uuid-format)
+See: [RFC 8141](https://www.rfc-editor.org/rfc/rfc8141.html)
 
 ---
 
