@@ -13,6 +13,7 @@ BookTheme = 'auto'
 BookToC = true
 BookSearch = false
 BookLogo = 'logo.png'
+images = ["https://raw.githubusercontent.com/NutshellEngineering/images/refs/heads/main/elliot/tvos/app_store_icon.png?token=GHSAT0AAAAAADBLHDL5OPBH4KXUUMOBD35U2C5C7KQ"]
 
 [languages]
 [languages.en]
