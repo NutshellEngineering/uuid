@@ -2,6 +2,7 @@
 weight: 2
 bookFlatSection: true
 title: "Custom Namespaces"
+description: "Custom Namespaces for UUID | Ergonomic UUIDs for Java, with first-class RFC 9562 support."
 ---
 
 # Creating Custom Namespaces

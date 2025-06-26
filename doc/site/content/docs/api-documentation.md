@@ -2,6 +2,7 @@
 weight: 1
 bookFlatSection: true
 title: "API Documentation"
+description: "API Documentation for UUID | Ergonomic UUIDs for Java, with first-class RFC 9562 support."
 ---
 
 # API Documentation

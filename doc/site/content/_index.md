@@ -1,5 +1,5 @@
 ---
-description: Ergonomic UUIDs for Java, with first-class RFC 9562 support. 
+description: "Ergonomic UUIDs for Java, with first-class RFC 9562 support." 
 ---
 
 # uuid
